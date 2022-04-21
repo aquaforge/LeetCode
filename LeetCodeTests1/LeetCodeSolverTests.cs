@@ -80,7 +80,7 @@ namespace LeetCodeSolver.Tests
         {
             string s = "aabbc";
             int target = 4;
-            Assert.AreEqual(new LeetCodeSolver().FirstUniqChar(s),target);
+            Assert.AreEqual(new LeetCodeSolver().FirstUniqChar(s), target);
         }
 
         [TestMethod()]
@@ -92,5 +92,41 @@ namespace LeetCodeSolver.Tests
             Assert.AreEqual(new LeetCodeSolver().IsPalindrome(s), target);
         }
 
+        [TestMethod()]
+        public void GenerateTest()
+        {
+            int numRows = 5;
+            int[][] expectedNums = {
+                new int[]{ 1 },
+                new int[] { 1, 1 },
+                new int[] { 1, 2, 1 },
+                new int[] { 1, 3, 3, 1 },
+                new int[] { 1, 4, 6, 4, 1 } };
+
+            int[][] nums = (int[][])new LeetCodeSolver().Generate(numRows);
+            Assert.AreEqual(nums.Length, expectedNums.Length);
+            for (int r = 0; r < numRows; r++)
+            {
+                Assert.AreEqual(nums[r].Length, expectedNums[r].Length);
+                for (int i = 0; i <= r; i++)
+                    Assert.AreEqual(nums[r][i], expectedNums[r][i]);
+            }
+        }
+
+        [TestMethod()]
+        public void IsValidTest()
+        {
+            string s = "{ (){ } [ ] [ [ ([ ]) ] ] }";
+            bool target = true;
+            Assert.AreEqual(new LeetCodeSolver().IsValid(s), target);
+        }
+
+        [TestMethod()]
+        public void IntToRomanTest()
+        {
+            int k = 1994;
+            string target = "MCMXCIV";
+            Assert.AreEqual(new LeetCodeSolver().IntToRoman(k), target);
+        }
     }
 }

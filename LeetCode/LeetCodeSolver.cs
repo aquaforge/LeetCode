@@ -104,7 +104,83 @@
             string ss = new string(s.ToCharArray().Reverse().ToArray());
             return s == ss;
         }
+
+
+        //Pascal's Triangle
+        //https://leetcode.com/explore/interview/card/top-interview-questions-easy/99/others/601/
+        public IList<IList<int>> Generate(int numRows)
+        {
+            int[][] pascalTriangle = new int[numRows][];
+            for (int r = 0; r < numRows; r++)
+            {
+                pascalTriangle[r] = new int[r + 1];
+                for (int i = 0; i <= r; i++)
+                {
+                    if (i == 0 || i == r)
+                        pascalTriangle[r][i] = 1;
+                    else
+                        pascalTriangle[r][i] = pascalTriangle[r - 1][i - 1] + pascalTriangle[r - 1][i];
+                }
+            }
+            return pascalTriangle;
+        }
+
+
+        //Valid Parentheses
+        //https://leetcode.com/explore/interview/card/top-interview-questions-easy/99/others/721/
+
+        public bool IsValid(string s)
+        {
+            char ch;
+            if (s == null) return true;
+            s = s.Replace(" ", "");
+            if (s.Length == 0) return true;
+
+            var bracketsStack = new Stack<char>(s.Length / 2);
+            char[] chars = s.ToCharArray();
+            for (int i = 0; i < chars.Length; i++)
+            {
+                switch (chars[i])
+                {
+                    case '{':
+                    case '(':
+                    case '[':
+                        bracketsStack.Push(chars[i]);
+                        break;
+                    case '}':
+                        if (bracketsStack.Count == 0) return false;
+                        ch = bracketsStack.Pop();
+                        if (ch != '{') return false;
+                        break;
+                    case ')':
+                        if (bracketsStack.Count == 0) return false;
+                        ch = bracketsStack.Pop();
+                        if (ch != '(') return false;
+                        break;
+                    case ']':
+                        if (bracketsStack.Count == 0) return false;
+                        ch = bracketsStack.Pop();
+                        if (ch != '[') return false;
+                        break;
+
+                    default:
+                        return false;
+                }
+            }
+            return bracketsStack.Count == 0;
+        }
+
+
+        //Integer to Roman
+        //https://leetcode.com/problems/integer-to-roman/
+        public string IntToRoman(int num)
+        {
+
+        }
     }
+
+
+}
 
 
 }
