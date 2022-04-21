@@ -88,9 +88,23 @@
                 .Where(a => a.Count == 1)
                 .FirstOrDefault();
             if (v == null) return -1;
-            return dict.GetValueOrDefault (v.Name);
+            return dict.GetValueOrDefault(v.Name);
         }
 
 
+
+        //Valid Palindrome
+        //https://leetcode.com/explore/interview/card/top-interview-questions-easy/127/strings/883/
+
+        public bool IsPalindrome(string s)
+        {
+            if (s == null) return true;
+
+            s = new string(s.ToLower().Where(c => char.IsLetterOrDigit(c)).ToArray());
+            string ss = new string(s.ToCharArray().Reverse().ToArray());
+            return s == ss;
+        }
     }
+
+
 }

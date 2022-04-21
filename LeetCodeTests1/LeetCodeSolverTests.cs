@@ -82,5 +82,15 @@ namespace LeetCodeSolver.Tests
             int target = 4;
             Assert.AreEqual(new LeetCodeSolver().FirstUniqChar(s),target);
         }
+
+        [TestMethod()]
+        public void IsPalindromeTest()
+        {
+            string s = "A man, a plan, a canal: Panama";
+            bool target = true;
+
+            Assert.AreEqual(new LeetCodeSolver().IsPalindrome(s), target);
+        }
+
     }
 }
