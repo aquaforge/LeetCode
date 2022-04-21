@@ -128,5 +128,27 @@ namespace LeetCodeSolver.Tests
             string target = "MCMXCIV";
             Assert.AreEqual(new LeetCodeSolver().IntToRoman(k), target);
         }
+
+        [TestMethod()]
+        public void RomanToIntTest()
+        {
+            string s = "MCMXCIV";
+            int target = 1994;
+            Assert.AreEqual(new LeetCodeSolver().RomanToInt(s), target);
+        }
+
+        [TestMethod()]
+        public void RomanAllTest()
+        {
+            LeetCodeSolver lc = new();
+
+            for (int i = 0; i < 3000; i++)
+            {
+                Assert.AreEqual(lc.RomanToInt(lc.IntToRoman(i)), i);
+            }
+
+        }
+
+
     }
 }

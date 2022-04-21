@@ -175,12 +175,172 @@
         //https://leetcode.com/problems/integer-to-roman/
         public string IntToRoman(int num)
         {
+            int k = 0;
+            string res = "";
+            k = num / 1000;
+            if (k > 0)
+            {
+                num -= k * 1000;
+                res += new string('M', k);
+            }
 
+            k = num / 100;
+            if (k > 0)
+            {
+                num -= k * 100;
+                res += k switch
+                {
+                    1 => "C",
+                    2 => "CC",
+                    3 => "CCC",
+                    4 => "CD",
+                    5 => "D",
+                    6 => "DC",
+                    7 => "DCC",
+                    8 => "DCCC",
+                    9 => "CM",
+                    _ => throw new NotImplementedException()
+                };
+            }
+
+            k = num / 10;
+            if (k > 0)
+            {
+                num -= k * 10;
+                res += k switch
+                {
+                    1 => "X",
+                    2 => "XX",
+                    3 => "XXX",
+                    4 => "XL",
+                    5 => "L",
+                    6 => "LX",
+                    7 => "LXX",
+                    8 => "LXXX",
+                    9 => "XC",
+                    _ => throw new NotImplementedException()
+                };
+            }
+
+            k = num;
+            if (k > 0)
+            {
+                res += k switch
+                {
+                    1 => "I",
+                    2 => "II",
+                    3 => "III",
+                    4 => "IV",
+                    5 => "V",
+                    6 => "VI",
+                    7 => "VII",
+                    8 => "VIII",
+                    9 => "IX",
+                    _ => throw new NotImplementedException()
+                };
+            }
+            return res;
+        }
+
+        //Roman to Integer
+        //https://leetcode.com/problems/roman-to-integer/
+        public int RomanToInt(string s)
+        {
+            if (s == null || s.Length == 0) return 0;
+
+            int res = 0;
+            char[] chars = s.ToUpper().ToCharArray();
+            for (int i = 0; i < chars.Length; i++)
+            {
+                switch (chars[i])
+                {
+                    case 'M':
+                        res += 1000;
+                        break;
+                    case 'D':
+                        res += 500;
+                        break;
+                    case 'L':
+                        res += 50;
+                        break;
+                    case 'V':
+                        res += 5;
+                        break;
+
+                    case 'C':
+                        if (i + 1 < chars.Length)
+                        {
+                            switch (chars[i + 1])
+                            {
+                                case 'M':
+                                    res += 900;
+                                    i++;
+                                    break;
+                                case 'D':
+                                    res += 400;
+                                    i++;
+                                    break;
+                                default:
+                                    res += 100;
+                                    break;
+                            }
+                        }
+                        else
+                            res += 100;
+                        break;
+
+                    case 'X':
+                        if (i + 1 < chars.Length)
+                        {
+                            switch (chars[i + 1])
+                            {
+                                case 'C':
+                                    res += 90;
+                                    i++;
+                                    break;
+                                case 'L':
+                                    res += 40;
+                                    i++;
+                                    break;
+                                default:
+                                    res += 10;
+                                    break;
+                            }
+                        }
+                        else
+                            res += 10;
+                        break;
+
+                    case 'I':
+                        if (i + 1 < chars.Length)
+                        {
+                            switch (chars[i + 1])
+                            {
+                                case 'X':
+                                    res += 9;
+                                    i++;
+                                    break;
+                                case 'V':
+                                    res += 4;
+                                    i++;
+                                    break;
+                                default:
+                                    res += 1;
+                                    break;
+                            }
+                        }
+                        else
+                            res += 1;
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+            return res;
         }
     }
-
-
 }
 
 
-}
+
