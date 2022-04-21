@@ -63,7 +63,7 @@ namespace LeetCodeSolver.Tests
         public void PlusOneTest()
         {
             int[] nums = { 8, 9 }; // Input array
-            int[] expectedNums = {  9, 0 }; // The expected answer with correct length
+            int[] expectedNums = { 9, 0 }; // The expected answer with correct length
             //int[] nums = { 9, 9 }; // Input array
             //int[] expectedNums = { 1, 0, 0 }; // The expected answer with correct length
 
@@ -73,6 +73,14 @@ namespace LeetCodeSolver.Tests
             for (int i = 0; i < nums.Length; i++)
                 Assert.AreEqual(nums[i], expectedNums[i]);
 
+        }
+
+        [TestMethod()]
+        public void FirstUniqCharTest()
+        {
+            string s = "aabbc";
+            int target = 4;
+            Assert.AreEqual(new LeetCodeSolver().FirstUniqChar(s),target);
         }
     }
 }

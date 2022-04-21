@@ -73,5 +73,24 @@
             return res;
         }
 
+        //First Unique Character in a String
+        //https://leetcode.com/explore/interview/card/top-interview-questions-easy/127/strings/881/
+        public int FirstUniqChar(string s)
+        {
+            char[] chars = s.ToCharArray();
+
+            Dictionary<char, int> dict = new();
+            for (int i = 0; i < chars.Length; i++)
+                dict[chars[i]] = i;
+
+            var v = chars.GroupBy(x => x)
+                .Select(g => new { Name = g.Key, Count = g.Count() })
+                .Where(a => a.Count == 1)
+                .FirstOrDefault();
+            if (v == null) return -1;
+            return dict.GetValueOrDefault (v.Name);
+        }
+
+
     }
 }
