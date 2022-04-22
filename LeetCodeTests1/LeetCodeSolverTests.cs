@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using LeetCodeSolver;
+using System;
 
 namespace LeetCodeSolver.Tests
 {
@@ -149,6 +150,25 @@ namespace LeetCodeSolver.Tests
 
         }
 
+        [TestMethod()]
+        public void PowerfulIntegersTest()
+        {
+            int x = 2, y = 3, bound = 10;
+            int[] output = { 2, 3, 4, 5, 7, 9, 10 };
+            //int x = 3, y = 5, bound = 15;
+            //int[] output = { 2, 4, 6, 8, 10, 14 };
 
+            int[] result = (int[])new LeetCodeSolver().PowerfulIntegers(x, y, bound);
+
+            Assert.AreEqual(result.Length, output.Length);
+
+
+            Array.Sort(output);
+            Array.Sort(result);
+
+            for (int i = 0; i < result.Length; i++)
+                Assert.AreEqual(result[i], output[i]);
+
+        }
     }
 }

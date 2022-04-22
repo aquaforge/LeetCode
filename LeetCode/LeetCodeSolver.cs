@@ -1,4 +1,7 @@
-﻿namespace LeetCodeSolver
+﻿using System.Collections;
+using System.Collections.Generic;
+
+namespace LeetCodeSolver
 {
 
     public class LeetCodeSolver
@@ -339,6 +342,31 @@
             }
             return res;
         }
+
+        //Powerful Integers
+        //https://leetcode.com/problems/powerful-integers/
+        public IList<int> PowerfulIntegers(int x, int y, int bound)
+        {   //check time
+            Dictionary<int, int> result = new();
+
+            int xx = 1;
+            while (xx <= bound - 1)
+            {
+                int yy = 1;
+                while (yy <= bound - xx)
+                {
+                    int zz = xx + yy;
+                    if (!result.ContainsKey(zz))
+                        result.Add(zz, yy);
+                    yy *= y;
+                }
+                xx *= x;
+            }
+
+            return result.Keys.ToArray();
+        }
+
+
     }
 }
 
