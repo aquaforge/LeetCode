@@ -403,6 +403,35 @@ namespace LeetCodeSolver
                 .ToList();
         }
 
+        //Max Area of Island
+        //https://leetcode.com/problems/max-area-of-island/
+        public int MaxAreaOfIsland(int[][] grid)
+        {
+            int maxArea = int.MinValue;
+            bool[][] visited = new bool[grid.Length][];
+            for (int i = 0; i < grid.Length; i++)
+                visited[i] = new bool[grid[i].Length];
+
+            for (int i = 0; i < grid.Length; i++)
+                for (int j = 0; j < grid[i].Length; j++)
+                    maxArea = Math.Max(maxArea, CalcVisited(i, j, grid, visited));
+            return maxArea;
+        }
+
+        private int CalcVisited(int i, int j, int[][] grid, bool[][] visited)
+        {
+            if (i < 0 || j < 0) return 0;
+            if (i >= grid.Length || j >= grid[0].Length) return 0;
+            if (visited[i][j] || grid[i][j] == 0) return 0;
+
+            visited[i][j] = true;
+            int z = 1
+                + CalcVisited(i - 1, j, grid, visited)
+                + CalcVisited(i + 1, j, grid, visited)
+                + CalcVisited(i, j - 1, grid, visited)
+                + CalcVisited(i, j + 1, grid, visited);
+            return z;
+        }
     }
 }
 

@@ -220,5 +220,29 @@ namespace LeetCodeSolver.Tests
                 Assert.AreEqual(expect[i], actual[i]);
 
         }
+
+        [TestMethod()]
+        public void MaxAreaOfIslandTest()
+        {
+            //int[][] grid = {
+            //    new[]{ 0,0,1,0,0,0,0,1,0,0,0,0,0},
+            //    new[]{ 0,0,0,0,0,0,0,1,1,1,0,0,0},
+            //    new[]{ 0,1,1,0,1,0,0,0,0,0,0,0,0},
+            //    new[]{ 0,1,0,0,1,1,0,0,1,0,1,0,0},
+            //    new[]{ 0,1,0,0,1,1,0,0,1,1,1,0,0},
+            //    new[]{ 0,0,0,0,0,0,0,0,0,0,1,0,0},
+            //    new[]{ 0,0,0,0,0,0,0,1,1,1,0,0,0},
+            //    new[]{ 0,0,0,0,0,0,0,1,1,0,0,0,0}};
+            //int expected = 6;
+            int[][] grid =  {
+                new[]{ 1,1,0,0,0},
+                new[]{ 1,1,0,0,0},
+                new[]{ 0,0,0,1,1},
+                new[]{ 0,0,0,1,1} };
+            int expected = 4;
+
+            int actual = new LeetCodeSolver().MaxAreaOfIsland(grid);
+            Assert.AreEqual(expected, actual);
+        }
     }
 }
