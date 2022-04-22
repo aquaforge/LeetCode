@@ -366,6 +366,27 @@ namespace LeetCodeSolver
             return result.Keys.ToArray();
         }
 
+        //K Closest Points to Origin
+        //https://leetcode.com/problems/k-closest-points-to-origin/
+
+        public int[][] KClosest(int[][] points, int k)
+        {
+            if (k == points.Length) return points;
+            k = Math.Min(points.Length, k);
+
+            return Enumerable.Range(0, points.Length)
+                .Select(r => new
+                {
+                    row = r,
+                    x = points[r][0],
+                    y = points[r][1],
+                    distSqr = Math.Pow(points[r][0], 2) + Math.Pow(points[r][1], 2)
+                })
+                .OrderBy(v => v.distSqr)
+                .Take(k)
+                .Select(data=> new[] { data.x, data.y })
+                .ToArray();
+        }
 
     }
 }

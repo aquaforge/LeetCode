@@ -170,5 +170,31 @@ namespace LeetCodeSolver.Tests
                 Assert.AreEqual(result[i], output[i]);
 
         }
+
+        [TestMethod()]
+        public void KClosestTest()
+        {
+            int[][] points = { new[] { 3, 3 }, new[] { 5, -1 }, new[] { -2, 4 } };
+            int k = 2;
+            int[][] expect = { new[] { 3, 3 }, new[] { -2, 4 } };
+
+            int[][] actual = new LeetCodeSolver().KClosest(points, k);
+
+            Assert.AreEqual(expect.Length, actual.Length);
+            for (int i = 0; i < actual.Length; i++)
+            {
+                bool bFound = false;
+                for (int j = 0; j < actual.Length; j++)
+                {
+                    if (actual[i][0] == expect[j][0] && actual[i][1] == expect[j][1])
+                    {
+                        bFound = true;
+                        break;
+                    }
+                }
+                if (!bFound) Assert.Fail($"Not found {actual[i][0]}_{actual[i][i]}");
+            }
+
+        }
     }
 }
