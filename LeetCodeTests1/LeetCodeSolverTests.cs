@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using LeetCodeSolver;
 using System;
+using System.Collections.Generic;
 
 namespace LeetCodeSolver.Tests
 {
@@ -194,6 +195,29 @@ namespace LeetCodeSolver.Tests
                 }
                 if (!bFound) Assert.Fail($"Not found {actual[i][0]}_{actual[i][i]}");
             }
+
+        }
+
+        [TestMethod()]
+        public void TopKFrequentTest()
+        {
+            string[] words = { "i", "love", "leetcode", "i", "love", "coding" };
+            int k = 2;
+            string[] expect = { "i", "love" };
+            //string[] words = { "the", "day", "is", "sunny", "the", "the", "the", "sunny", "is", "is" };
+            //int k = 4;
+            //string[] expect = { "the", "is", "sunny", "day" };
+
+            IList<string> z = new LeetCodeSolver().TopKFrequent(words, k);
+            string[] actual = new string[z.Count];
+            z.CopyTo(actual, 0);
+
+            Assert.AreEqual(expect.Length, actual.Length);
+
+            Array.Sort(actual);
+            Array.Sort(expect);
+            for (int i = 0; i < actual.Length; i++)
+                Assert.AreEqual(expect[i], actual[i]);
 
         }
     }

@@ -384,8 +384,23 @@ namespace LeetCodeSolver
                 })
                 .OrderBy(v => v.distSqr)
                 .Take(k)
-                .Select(data=> new[] { data.x, data.y })
+                .Select(data => new[] { data.x, data.y })
                 .ToArray();
+        }
+
+
+        //Top K Frequent Words
+        //https://leetcode.com/problems/top-k-frequent-words/
+        public IList<string> TopKFrequent(string[] words, int k)
+        {
+            return words
+                .GroupBy(w => w)
+                .Select(g => new { Name = g.Key, Count = g.Count() })
+                .OrderByDescending(w => w.Count)
+                .ThenBy(w => w.Name)
+                .Take(k)
+                .Select(z => z.Name)
+                .ToList();
         }
 
     }
