@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 
 namespace LeetCodeSolver
 {
@@ -432,8 +433,44 @@ namespace LeetCodeSolver
                 + CalcVisited(i, j + 1, grid, visited);
             return z;
         }
+
+        //https://leetcode.com/problems/adding-spaces-to-a-string/
+        //2109. Adding Spaces to a String
+
+        public string AddSpaces(string s, int[] spaces)
+        {
+            string sPart;
+            StringBuilder sb = new();
+            for (int i = 0; i < spaces.Length; i++)
+            {
+                if (i == 0)
+                {
+                    sPart = s[..spaces[0]];
+                    sb.Append(sPart);
+                }
+                else
+                {
+                    sPart = s[(spaces[i - 1])..(spaces[i])];
+                    sb.Append(sPart);
+                }
+                sb.Append(' ');
+            }
+            sPart = s[spaces[^1]..];
+            sb.Append(sPart);
+
+            return sb.ToString();
+        }
+
+
+
+
     }
+    //https://leetcode.com/problems/trips-and-users/
+    //https://leetcode.com/problems/merge-intervals/
 }
+
+
+
 
 
 

@@ -244,5 +244,16 @@ namespace LeetCodeSolver.Tests
             int actual = new LeetCodeSolver().MaxAreaOfIsland(grid);
             Assert.AreEqual(expected, actual);
         }
+
+        [TestMethod()]
+        public void AddSpacesTest()
+        {
+            string input = "LeetcodeHelpsMeLearn";
+            int[] spaces = { 8, 13, 15 };
+            string expected = "Leetcode Helps Me Learn";
+
+            string actual = new LeetCodeSolver().AddSpaces(input, spaces);
+            Assert.AreEqual(expected, actual);
+        }
     }
 }
