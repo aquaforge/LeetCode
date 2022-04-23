@@ -482,18 +482,19 @@ namespace LeetCodeSolver
         //15. 3Sum
         //https://leetcode.com/problems/3sum/
         public IList<IList<int>> ThreeSum(int[] nums)
+        //Time Limit Exceeded
         {
-            HashSet<IList<int>> hSets = new();
+            List<TripleInt> tripleInts = new();
             for (int i = 0; i < nums.Length; i++)
                 for (int j = 0; j < nums.Length; j++)
                     for (int k = 0; k < nums.Length; k++)
                         if (i != j && i != k && j != k && nums[i] + nums[j] + nums[k] == 0)
                         {
-                            var lst = new List<int>() { nums[i], nums[j], nums[k] };
-                            if (!hSets.Contains(lst, new TripleIntHashSetComparer())) 
-                                hSets.Add(lst);
+                            var trpl = new TripleInt(nums[i], nums[j], nums[k]);
+                            if (!tripleInts.Contains(trpl))
+                                tripleInts.Add(trpl);
                         }
-            return hSets.ToList();
+            return tripleInts.Select(t => t.ToList()).ToList();
         }
 
 
@@ -505,31 +506,32 @@ namespace LeetCodeSolver
     //https://leetcode.com/problems/merge-intervals/
 
 
-    public class TripleIntHashSetComparer : IEqualityComparer<IList<int>>
+    public class TripleInt : IEquatable<TripleInt>
     {
-        public bool Equals(IList<int>? x, IList<int>? y)
+        private readonly int[] arr;
+        public int this[int i] => arr[i];
+        public int Length => arr.Length;
+
+        public TripleInt(params int[] arr)
         {
-            if (x == null && y == null) return true;
-            if (x != null && y == null) return false;
-            if (x == null && y != null) return false;
-            if (x.Count != y.Count) return false;
-            int[] a = x.ToArray();
-            int[] b = y.ToArray();
-            Array.Sort(a);
-            Array.Sort(b);
-            for (int i = 0; i < a.Length; i++)
-                if (a[i] != b[i]) return false;
+            this.arr = arr;
+            Array.Sort(this.arr);
+        }
+
+
+        public bool Equals(TripleInt? other)
+        {
+            if (other == null) return false;
+            if (this.Length != other.Length) return false;
+
+            for (int i = 0; i < this.Length; i++)
+                if (this[i] != other[i]) return false;
             return true;
         }
 
-        public int GetHashCode([DisallowNull] IList<int> obj)
-        {
-            int[] arr = obj.ToArray();
-            Array.Sort(arr);
-            return arr.Select((item, index) => item * index).Sum();
-        }
+        public IList<int> ToList() => arr.ToList();
+        public int[] ToArray() => arr.ToArray();
     }
-
 }
 
 

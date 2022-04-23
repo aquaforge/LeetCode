@@ -279,16 +279,16 @@ namespace LeetCodeSolver.Tests
         public void ThreeSumTest()
         {
             int[] nums = { -1, 0, 1, 2, -1, -4 };
-            HashSet<IList<int>> expected = new();
-            expected.Add(new List<int>(new int[] { -1, -1, 2 }));
-            expected.Add(new List<int>(new int[] { -1, 0, 1 }));
+            List<TripleInt> expected = new();
+            expected.Add(new TripleInt(-1, -1, 2));
+            expected.Add(new TripleInt(-1, 0, 1));
 
             IList<IList<int>> res = new LeetCodeSolver().ThreeSum(nums);
-            HashSet<IList<int>> actual = new(res);
+            List<TripleInt> actual = res.Select(l => new TripleInt(l.ToArray())).ToList();
 
             Assert.AreEqual(expected.Count, actual.Count);
-            foreach (var item in expected)
-                if (!actual.Contains(item, new TripleIntHashSetComparer()))
+            foreach (TripleInt item in expected)
+                if (!actual.Contains(item))
                     Assert.Fail(String.Join(",", item.ToArray()));
         }
     }
