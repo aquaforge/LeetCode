@@ -5,6 +5,32 @@ using System.Text;
 
 namespace LeetCodeSolver
 {
+    public class TripleInt : IEquatable<TripleInt>
+    {
+        private readonly int[] arr;
+        public int this[int i] => arr[i];
+        public int Length => arr.Length;
+
+        public TripleInt(params int[] arr)
+        {
+            this.arr = arr;
+            Array.Sort(this.arr);
+        }
+
+
+        public bool Equals(TripleInt? other)
+        {
+            if (other == null) return false;
+            if (this.Length != other.Length) return false;
+
+            for (int i = 0; i < this.Length; i++)
+                if (this[i] != other[i]) return false;
+            return true;
+        }
+
+        public IList<int> ToList() => arr.ToList();
+        public int[] ToArray() => arr.ToArray();
+    }
 
 
     public class LeetCodeSolver
@@ -497,41 +523,59 @@ namespace LeetCodeSolver
             return tripleInts.Select(t => t.ToList()).ToList();
         }
 
+        //Game Play Analysis I
+        //https://leetcode.com/problems/game-play-analysis-i/
+        /*
+         select player_id , min(event_date) as first_login 
+        from Activity
+        group by player_id
+        order by 1
+         */
 
 
+        //2165. Smallest Value of the Rearranged Number
+        //https://leetcode.com/problems/smallest-value-of-the-rearranged-number/
+        public long SmallestNumber(long num)
+        {
+            if (num == 0) return 0;
+            char[] chars = Math.Abs(num).ToString().ToCharArray();
+            if (num < 0)
+                return (-1) * long.Parse(chars.OrderByDescending(c => c).ToArray());
+            else
+            {
+                int ZeroCount = 0;
+                StringBuilder sb = new StringBuilder();
+
+                Array.Sort(chars);
+                for (int i = 0; i < chars.Length; i++)
+                {
+                    if (chars[i] == '0')
+                    {
+                        ZeroCount++;
+                        continue;
+                    }
+                    else
+                    {
+                        sb.Append(chars[i]);
+                        if (ZeroCount > 0)
+                        {
+                            sb.Append(new string('0',ZeroCount));
+                            ZeroCount=0;
+                        }
+                    }
+                }
+                return long.Parse(sb.ToString());
+            }
+        }
 
 
     }
     //https://leetcode.com/problems/trips-and-users/
     //https://leetcode.com/problems/merge-intervals/
+    //https://leetcode.com/problems/find-bottom-left-tree-value/
 
 
-    public class TripleInt : IEquatable<TripleInt>
-    {
-        private readonly int[] arr;
-        public int this[int i] => arr[i];
-        public int Length => arr.Length;
 
-        public TripleInt(params int[] arr)
-        {
-            this.arr = arr;
-            Array.Sort(this.arr);
-        }
-
-
-        public bool Equals(TripleInt? other)
-        {
-            if (other == null) return false;
-            if (this.Length != other.Length) return false;
-
-            for (int i = 0; i < this.Length; i++)
-                if (this[i] != other[i]) return false;
-            return true;
-        }
-
-        public IList<int> ToList() => arr.ToList();
-        public int[] ToArray() => arr.ToArray();
-    }
 }
 
 

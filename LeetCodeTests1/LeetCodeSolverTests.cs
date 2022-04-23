@@ -291,5 +291,18 @@ namespace LeetCodeSolver.Tests
                 if (!actual.Contains(item))
                     Assert.Fail(String.Join(",", item.ToArray()));
         }
+
+        [TestMethod()]
+        public void SmallestNumberTest()
+        {
+            long num = 4099;
+            long expected = 4099;
+            //long num = -7605;
+            //long expected = -7650;
+
+            long actual = new LeetCodeSolver().SmallestNumber(num);
+            Assert.AreEqual(expected, actual);
+
+        }
     }
 }
