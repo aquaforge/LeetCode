@@ -304,5 +304,27 @@ namespace LeetCodeSolver.Tests
             Assert.AreEqual(expected, actual);
 
         }
+
+        [TestMethod()]
+        public void MinimumTimeTest()
+        {
+            //Wrong Answer 6 why
+            string s = "010110";
+            int expected = 6;
+            //string s = "1100101";
+            //int expected = 5;
+
+            int actual = new LeetCodeSolver().MinimumTime(s);
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod()]
+        public void SecondHighestTest()
+        {
+            string s = "abc1111";
+            int expected = -1;
+            int actual = new LeetCodeSolver().SecondHighest(s);
+            Assert.AreEqual(expected, actual);
+        }
     }
 }

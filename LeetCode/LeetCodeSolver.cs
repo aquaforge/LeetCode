@@ -559,8 +559,8 @@ namespace LeetCodeSolver
                         sb.Append(chars[i]);
                         if (ZeroCount > 0)
                         {
-                            sb.Append(new string('0',ZeroCount));
-                            ZeroCount=0;
+                            sb.Append(new string('0', ZeroCount));
+                            ZeroCount = 0;
                         }
                     }
                 }
@@ -569,13 +569,40 @@ namespace LeetCodeSolver
         }
 
 
+        //2167. Minimum Time to Remove All Cars Containing Illegal Goods
+        //https://leetcode.com/problems/minimum-time-to-remove-all-cars-containing-illegal-goods/
+        public int MinimumTime(string s)
+            //"010110" Wrong Answer output 6  expected 5 why
+        {
+            if (s == null) return 0;
+            if (!s.Contains('0')) return s.Length;
+            if (!s.Contains('1')) return 0;
+
+            int zeroFirst = s.IndexOf('0');
+            int zeroLast = s.LastIndexOf('0');
+
+            if (zeroFirst == zeroLast) return s.Length - 1;
+
+            return (zeroFirst) + (s.Length - zeroLast-1) + 2 * s[zeroFirst..zeroLast].Where(c => c == '1').Count();
+        }
+
+
+
+        //1796. Second Largest Digit in a String
+        //https://leetcode.com/problems/second-largest-digit-in-a-string/
+        public int SecondHighest(string s)
+        {
+            char[] data = s.Where(c => char.IsDigit(c)).Distinct().OrderByDescending(c => c).Take(2).ToArray();
+            if (data.Length != 2) return -1;
+            return int.Parse(data[1].ToString());
+        }
+
+
+
     }
     //https://leetcode.com/problems/trips-and-users/
     //https://leetcode.com/problems/merge-intervals/
     //https://leetcode.com/problems/find-bottom-left-tree-value/
-
-
-
 }
 
 
