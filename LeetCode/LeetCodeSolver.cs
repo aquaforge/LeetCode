@@ -464,6 +464,21 @@ namespace LeetCodeSolver
 
 
 
+        //Merge Sorted Array
+        //https://leetcode.com/explore/learn/card/fun-with-arrays/525/inserting-items-into-an-array/3253/
+        public void Merge(int[] nums1, int m, int[] nums2, int n)
+        {
+            int[] res = new int[m + n];
+            if (m > 0) nums1[..m].CopyTo(res, 0);
+            if (n > 0) nums2[..n].CopyTo(res, m);
+            Array.Sort(res);
+            Array.Resize(ref nums1, res.Length);
+            res.CopyTo(nums1, 0);
+        }
+
+
+
+
     }
     //https://leetcode.com/problems/trips-and-users/
     //https://leetcode.com/problems/merge-intervals/

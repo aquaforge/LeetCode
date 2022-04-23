@@ -255,5 +255,23 @@ namespace LeetCodeSolver.Tests
             string actual = new LeetCodeSolver().AddSpaces(input, spaces);
             Assert.AreEqual(expected, actual);
         }
+
+        [TestMethod()]
+        public void MergeTest()
+        {
+            int[] nums1 = { 1, 2, 3, 0, 0, 0 };
+            int m = 3;
+            int[] nums2 = { 2, 5, 6 };
+            int n = 3;
+            int[] expected = { 1, 2, 2, 3, 5, 6 };
+
+            new LeetCodeSolver().Merge(nums1, m, nums2, n);
+
+            Assert.AreEqual(expected.Length, nums1.Length);
+            for (int i = 0; i < expected.Length; i++)
+                Assert.AreEqual(expected[i], nums1[i]);
+
+
+        }
     }
 }
