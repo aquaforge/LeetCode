@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Text;
 
 namespace LeetCodeSolver
 {
+
 
     public class LeetCodeSolver
     {
@@ -477,11 +479,57 @@ namespace LeetCodeSolver
         }
 
 
+        //15. 3Sum
+        //https://leetcode.com/problems/3sum/
+        public IList<IList<int>> ThreeSum(int[] nums)
+        {
+            HashSet<IList<int>> hSets = new();
+            for (int i = 0; i < nums.Length; i++)
+                for (int j = 0; j < nums.Length; j++)
+                    for (int k = 0; k < nums.Length; k++)
+                        if (i != j && i != k && j != k && nums[i] + nums[j] + nums[k] == 0)
+                        {
+                            var lst = new List<int>() { nums[i], nums[j], nums[k] };
+                            if (!hSets.Contains(lst, new TripleIntHashSetComparer())) 
+                                hSets.Add(lst);
+                        }
+            return hSets.ToList();
+        }
+
+
+
 
 
     }
     //https://leetcode.com/problems/trips-and-users/
     //https://leetcode.com/problems/merge-intervals/
+
+
+    public class TripleIntHashSetComparer : IEqualityComparer<IList<int>>
+    {
+        public bool Equals(IList<int>? x, IList<int>? y)
+        {
+            if (x == null && y == null) return true;
+            if (x != null && y == null) return false;
+            if (x == null && y != null) return false;
+            if (x.Count != y.Count) return false;
+            int[] a = x.ToArray();
+            int[] b = y.ToArray();
+            Array.Sort(a);
+            Array.Sort(b);
+            for (int i = 0; i < a.Length; i++)
+                if (a[i] != b[i]) return false;
+            return true;
+        }
+
+        public int GetHashCode([DisallowNull] IList<int> obj)
+        {
+            int[] arr = obj.ToArray();
+            Array.Sort(arr);
+            return arr.Select((item, index) => item * index).Sum();
+        }
+    }
+
 }
 
 

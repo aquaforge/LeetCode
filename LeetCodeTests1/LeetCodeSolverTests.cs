@@ -2,6 +2,7 @@
 using LeetCodeSolver;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace LeetCodeSolver.Tests
 {
@@ -272,6 +273,23 @@ namespace LeetCodeSolver.Tests
                 Assert.AreEqual(expected[i], nums1[i]);
 
 
+        }
+
+        [TestMethod()]
+        public void ThreeSumTest()
+        {
+            int[] nums = { -1, 0, 1, 2, -1, -4 };
+            HashSet<IList<int>> expected = new();
+            expected.Add(new List<int>(new int[] { -1, -1, 2 }));
+            expected.Add(new List<int>(new int[] { -1, 0, 1 }));
+
+            IList<IList<int>> res = new LeetCodeSolver().ThreeSum(nums);
+            HashSet<IList<int>> actual = new(res);
+
+            Assert.AreEqual(expected.Count, actual.Count);
+            foreach (var item in expected)
+                if (!actual.Contains(item, new TripleIntHashSetComparer()))
+                    Assert.Fail(String.Join(",", item.ToArray()));
         }
     }
 }
