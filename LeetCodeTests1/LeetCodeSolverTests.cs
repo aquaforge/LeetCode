@@ -326,5 +326,25 @@ namespace LeetCodeSolver.Tests
             int actual = new LeetCodeSolver().SecondHighest(s);
             Assert.AreEqual(expected, actual);
         }
+
+        //[TestMethod()]
+        //public void LengthLongestPathTest()
+        //{
+        //    string s = "dir\n\tsubdir1\n\tsubdir2\n\t\tfile.ext";
+        //    int expected = 20;
+        //    int actual = new LeetCodeSolver().LengthLongestPath(s);
+        //    Assert.AreEqual(expected, actual);
+
+        //}
+
+
+        [TestMethod()]
+        public void solutionTest()
+        {
+            int[] A = { 1, 5, 2, 1, 4, 0 };
+            int expected = 11;
+            int actual = new LeetCodeSolver().solution3(A);
+            Assert.AreEqual(expected, actual);
+        }
     }
 }

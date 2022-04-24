@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Text;
+using System.Linq;
 
 namespace LeetCodeSolver
 {
@@ -572,7 +573,7 @@ namespace LeetCodeSolver
         //2167. Minimum Time to Remove All Cars Containing Illegal Goods
         //https://leetcode.com/problems/minimum-time-to-remove-all-cars-containing-illegal-goods/
         public int MinimumTime(string s)
-            //"010110" Wrong Answer output 6  expected 5 why
+        //"010110" Wrong Answer output 6  expected 5 why
         {
             if (s == null) return 0;
             if (!s.Contains('0')) return s.Length;
@@ -583,7 +584,7 @@ namespace LeetCodeSolver
 
             if (zeroFirst == zeroLast) return s.Length - 1;
 
-            return (zeroFirst) + (s.Length - zeroLast-1) + 2 * s[zeroFirst..zeroLast].Where(c => c == '1').Count();
+            return (zeroFirst) + (s.Length - zeroLast - 1) + 2 * s[zeroFirst..zeroLast].Where(c => c == '1').Count();
         }
 
 
@@ -597,6 +598,84 @@ namespace LeetCodeSolver
             return int.Parse(data[1].ToString());
         }
 
+
+        //388. Longest Absolute File Path
+        //https://leetcode.com/problems/longest-absolute-file-path/
+        public int LengthLongestPath(string input)
+        {
+            if (input == null || input == string.Empty || !input.Contains('.')) return 0;
+
+            string[] lines = input.Split('\n');
+            string[] paths = new string[lines.Length];
+
+            return 0;
+        }
+
+
+        //        NumberOfDiscIntersections
+        //https://app.codility.com/programmers/task/number_of_disc_intersections/
+
+        public int solution(int[] A)
+        {
+            var data = A.Select((r, index) => new { radius = (long)r, pos = (long)index });
+            var res =
+                from a in data
+                from b in data
+                where a.pos < b.pos && a.pos + a.radius >= b.pos - b.radius
+                select new { a, b };
+            return res.Count();
+        }
+
+        public int solution2(int[] A)
+        {
+            long[] B = new long[A.Length];
+            A.CopyTo(B, 0);
+
+            long[] startPos = B.Select((a, i) => (long)i - a).ToArray();
+            long[] endPos = B.Select((a, i) => (long)i + a).ToArray();
+
+            int z = 0;
+            for (long i = 0; i < B.Length; i++)
+                for (long j = i + 1; j < B.Length; j++)
+                    if (endPos[i] >= startPos[j]) z++;
+            return z;
+        }
+
+        public int solution3(int[] A)
+        {
+            long[] B = new long[A.Length];
+            A.CopyTo(B, 0);
+
+            int[] startPosArray = new int[B.Length];
+            int[] endPosArray = new int[B.Length];
+
+            long maxPos = B.Length - 1;
+            for (long i = 0; i < B.Length; i++)
+            {
+                long startPos = 0;
+                if (B[i] < i) startPos = i - B[i];
+
+                long endPos = maxPos;
+                if (i + B[i] < maxPos) endPos = i + B[i];
+
+                startPosArray[startPos]++;
+                endPosArray[endPos]++;
+            }
+
+            int sumOfIntersections = 0;
+            int activeRingsCounter = 0;
+            for (int i = 0; i < B.Length; i++)
+            {
+                if (startPosArray[i] > 0)
+                {
+                    sumOfIntersections += startPosArray[i] * activeRingsCounter + startPosArray[i] * (startPosArray[i] - 1) / 2;
+                    activeRingsCounter += startPosArray[i];
+                }
+                if (sumOfIntersections > 10000000) return -1;
+                activeRingsCounter -= endPosArray[i];
+            }
+            return sumOfIntersections;
+        }
 
 
     }
