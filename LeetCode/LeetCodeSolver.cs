@@ -684,6 +684,65 @@ namespace LeetCodeSolver
             return sumOfIntersections;
         }
 
+        //Valid Sudoku
+        //https://leetcode.com/problems/valid-sudoku/
+        public bool IsValidSudoku(char[][] board)
+        {
+            if (board == null) return false;
+            if (board.Length != 9) return false;
+            for (int i = 0; i < board.Length; i++)
+                if (board[i].Length != 9) return false;
+
+            for (int i = 0; i < 9; i++)
+                if (!IsValidSudokuLine(string.Join("", board[i])))
+                    return false;
+
+            StringBuilder sb = new();
+            for (int i = 0; i < 9; i++)
+            {
+                sb.Clear();
+                for (int j = 0; j < 9; j++)
+                    sb.Append(board[i][j]);
+                if (!IsValidSudokuLine(sb.ToString()))
+                    return false;
+            }
+            for (int k = 0; k < 9; k++)
+            {
+                sb.Clear();
+                for (int i = 0; i < 3; i++)
+                    for (int j = 0; j < 3; j++)
+                        sb.Append(board[3 * (k / 3) + i][3 * (k % 3) + j]);
+                if (!IsValidSudokuLine(sb.ToString()))
+                    return false;
+            }
+            return true;
+        }
+
+        public static bool IsValidSudokuLine(string sLine)
+        {
+            if (sLine == null) return false;
+            if (sLine.Length != 9) return false;
+
+            char[] chars = sLine.Replace(".", "").ToCharArray();
+            Array.Sort(chars);
+            for (int i = 1; i < chars.Length; i++)
+                if (chars[i - 1] == chars[i]) return false;
+            return true;
+        }
+
+
+
+        //Sudoku Solver
+        //https://leetcode.com/problems/sudoku-solver/
+        public void SolveSudoku(char[][] board)
+        {
+            if (!IsValidSudoku(board)) throw new ArgumentException("!IsValidSudoku");
+
+
+
+
+        }
+
 
     }
     //https://leetcode.com/problems/trips-and-users/
