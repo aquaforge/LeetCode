@@ -343,7 +343,7 @@ namespace LeetCodeSolver.Tests
         {
             int[] A = { 1, 5, 2, 1, 4, 0 };
             int expected = 11;
-            int actual = new LeetCodeSolver().solution3(A);
+            int actual = new LeetCodeSolver().solution(A);
             Assert.AreEqual(expected, actual);
         }
     }

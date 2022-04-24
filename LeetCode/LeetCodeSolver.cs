@@ -615,7 +615,7 @@ namespace LeetCodeSolver
         //        NumberOfDiscIntersections
         //https://app.codility.com/programmers/task/number_of_disc_intersections/
 
-        public int solution(int[] A)
+        public int solution0(int[] A)
         {
             var data = A.Select((r, index) => new { radius = (long)r, pos = (long)index });
             var res =
@@ -623,10 +623,13 @@ namespace LeetCodeSolver
                 from b in data
                 where a.pos < b.pos && a.pos + a.radius >= b.pos - b.radius
                 select new { a, b };
-            return res.Count();
+
+            long z = res.Count();
+            if (z > 10000000) return -1;
+            return (int)z;
         }
 
-        public int solution2(int[] A)
+        public int solution1(int[] A)
         {
             long[] B = new long[A.Length];
             A.CopyTo(B, 0);
@@ -637,11 +640,15 @@ namespace LeetCodeSolver
             int z = 0;
             for (long i = 0; i < B.Length; i++)
                 for (long j = i + 1; j < B.Length; j++)
-                    if (endPos[i] >= startPos[j]) z++;
+                    if (endPos[i] >= startPos[j])
+                    {
+                        z++;
+                        if (z > 10000000) return -1;
+                    }
             return z;
         }
 
-        public int solution3(int[] A)
+        public int solution(int[] A)
         {
             long[] B = new long[A.Length];
             A.CopyTo(B, 0);
